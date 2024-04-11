@@ -10,21 +10,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
+
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-
 
 
                 .csrf(AbstractHttpConfigurer::disable)
@@ -41,16 +44,16 @@ public class WebSecurityConfig {
                         .permitAll() // Разрешаем всем доступ к странице входа
 
 
-
                 )
                 .logout((logout) -> logout.permitAll())
                 .authenticationProvider(daoAuthenticationProvider());
 
         return http.build();
     }
+
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         return daoAuthenticationProvider;

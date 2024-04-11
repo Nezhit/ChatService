@@ -1,31 +1,31 @@
 server:
-    port: 8001
+  port: 8001
 spring:
-    kafka:
-        bootstrap-servers: localhost:9092
-        consumer:
-            group-id: chat-group
-            auto-offset-reset: earliest
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: chat-group
+      auto-offset-reset: earliest
 
-    thymeleaf:
-        cache: false
-        mode: HTML
-        encoding: UTF-8
-        servlet:
-            content-type: text/html
-        prefix: classpath:/templates/
-        suffix: .html
-    datasource:
-        url: jdbc:postgresql://localhost:5444/chat
-        username: postgres
-        password: root
-        driver-class-name: org.postgresql.Driver
-    jpa:
-        hibernate:
-            ddl-auto: none
-        show-sql: true
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    prefix: classpath:/templates/
+    suffix: .html
+  datasource:
+    url: jdbc:postgresql://localhost:5444/chat
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
 logging:
-    level:
-        org:
-            springframework:
-                kafka: DEBUG
+  level:
+    org:
+      springframework:
+        kafka: DEBUG
