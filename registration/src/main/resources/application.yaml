@@ -1,0 +1,41 @@
+server:
+  port: 8000
+spring:
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    prefix: classpath:/templates/
+    suffix: .html
+  datasource:
+    url: jdbc:postgresql://localhost:5444/chat
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+  kafka:
+    producer:
+
+      bootstrap-servers: localhost:9092 # Адрес Kafka сервера
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: chat-group
+      auto-offset-reset: earliest
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    url: jdbc:postgresql://localhost:5444/chat
+    user: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+logging:
+  level:
+    org:
+      springframework:
+        kafka: DEBUG

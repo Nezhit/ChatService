@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+
+<form id="registrationForm">
+    <div>
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" name="username" required>
+    </div>
+    <div>
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div>
+        <label for="roles">Роли:</label>
+        <select id="roles" name="roles" multiple required>
+            <option value="ROLE_USER">Пользователь</option>
+            <option value="ROLE_MODERATOR">Модератор</option>
+            <option value="ROLE_ADMIN">Администратор</option>
+        </select>
+    </div>
+    <button type="button" onclick="submitForm()">Зарегистрироваться</button>
+</form>
+
+<script>
+    function submitForm() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/register", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                alert('Регистрация прошла успешно!');
+
+            } else if (xhr.readyState === 4) {
+                alert('Ошибка при регистрации: ' + xhr.responseText);
+            }
+        };
+
+        var form = document.getElementById('registrationForm');
+        var rolesSelected = document.getElementById('roles').selectedOptions;
+        var rolesArray = Array.from(rolesSelected).map(option => ({name: option.value}));
+
+        var userData = {
+            username: form.username.value,
+            password: form.password.value,
+            email: form.email.value,
+            roles: rolesArray
+        };
+
+        xhr.send(JSON.stringify(userData));
+    }
+</script>
+
+</body>
+</html>

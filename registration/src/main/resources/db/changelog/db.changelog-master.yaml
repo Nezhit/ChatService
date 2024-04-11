@@ -1,0 +1,10 @@
+databaseChangeLog:
+
+  - include:
+      file: db/changelog/changeset/fulltable.yaml
+
+database:
+  driver: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5444/chat
+  username: postgres
+  password: root
